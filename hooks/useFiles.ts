@@ -16,7 +16,7 @@ interface FileData {
 }
 
 const fetchFiles = async (userId: number): Promise<FileData[]> => {
-  const response = await axios.get(`http://localhost:3000/file/files?userId=${userId}`);
+  const response = await axios.get(`${process.env.NEXT_PUBLIC_API_URL}/file/files?userId=${userId}`);
   return response.data.data;  
 };
 
