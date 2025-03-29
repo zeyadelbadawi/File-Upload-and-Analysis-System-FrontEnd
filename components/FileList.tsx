@@ -21,7 +21,7 @@ const FileList = () => {
     if (userId !== null) {
       setLoading(true);
       axios
-        .get(`http://localhost:3000/file/files?userId=${userId}`)
+        .get(`${process.env.NEXT_PUBLIC_API_URL}/file/files?userId=${userId}`)
         .then((response) => {
           setFiles(response.data.data); 
           setLoading(false);
