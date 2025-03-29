@@ -45,7 +45,7 @@ const UserProfilePage = () => {
 
   const fetchUsers = async () => {
     try {
-      const res = await axios.get("http://localhost:3000/auth/users", {
+      const res = await axios.get(`${process.env.NEXT_PUBLIC_API_URL}/auth/users`, {
         headers: {
           Authorization: `Bearer ${localStorage.getItem("token")}`,
         },
@@ -69,7 +69,7 @@ const UserProfilePage = () => {
       }
 
       const res = await axios.put(
-        `http://localhost:3000/users/${userId}/edit`, 
+        `${process.env.NEXT_PUBLIC_API_URL}/${userId}/edit`, 
         { username: newUsername },
         {
           headers: {
@@ -88,7 +88,7 @@ const UserProfilePage = () => {
   const handleDeleteUser = async (userId: string) => {
     try {
       const token = localStorage.getItem("token");
-      await axios.delete(`http://localhost:3000/users/${userId}`, {
+      await axios.delete(`${process.env.NEXT_PUBLIC_API_URL}/${userId}`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -107,7 +107,7 @@ const UserProfilePage = () => {
       try {
         const token = localStorage.getItem("token");
         const res = await axios.put(
-          `http://localhost:3000/users/${userId}/edit`,
+          `${process.env.NEXT_PUBLIC_API_URL}/${userId}/edit`,
           { username: newName },
           {
             headers: {
