@@ -5,7 +5,7 @@ const useFileStatus = (fileId: string) => {
   const [status, setStatus] = useState('pending');
 
   useEffect(() => {
-    const socket = io(process.env.NEXT_PUBLIC_API_URL!);
+  const socket = io('https://backend-izke.onrender.com'); // Connect to the backend WebSocket server
     socket.emit('join', { fileId });
 
     socket.on('fileStatus', (status: string) => {
