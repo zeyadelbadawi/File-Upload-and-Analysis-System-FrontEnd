@@ -35,7 +35,7 @@ const RegisterPage = () => {
     }
 
     try {
-      const response = await axios.post('http://localhost:3000/auth/check-username', { username: newUsername });
+      const response = await axios.post(`${process.env.NEXT_PUBLIC_API_URL}/auth/check-username`, { username: newUsername });
       if (response.data.exists) {
         setUsernameError('Username already exists');
         setIsUsernameAvailable(false);
@@ -87,7 +87,7 @@ const RegisterPage = () => {
 
     try {
       setIsSubmitting(true);
-      const response = await axios.post('http://localhost:3000/auth/register', {
+      const response = await axios.post(`${process.env.NEXT_PUBLIC_API_URL}/auth/register`, {
         username,
         password,
         role,
