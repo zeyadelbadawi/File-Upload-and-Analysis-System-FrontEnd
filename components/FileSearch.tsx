@@ -41,6 +41,7 @@ const FileSearch = () => {
   if (loading) return <p className="text-center text-gray-600">Loading files...</p>;
   if (error) return <p className="text-center text-red-500">{error}</p>;
 
+  // Search functionality
   const filteredFiles = files.filter((file) =>
     file.originalName.toLowerCase().includes(searchTerm.toLowerCase())
   );
@@ -52,6 +53,7 @@ const FileSearch = () => {
   return (
     <div className="max-w-full mx-auto p-6 bg-white shadow-lg rounded-lg mt-6 mb-6">
       
+      {/* Filters Section */}
       <div className="flex gap-4 mb-6 flex-wrap">
         <div className="relative flex items-center w-full sm:w-72">
           <input
@@ -95,6 +97,7 @@ const FileSearch = () => {
         </select>
       </div>
 
+      {/* Files List */}
       <ul className="space-y-4">
         {filteredFiles.map((file) => (
           <li key={file.id} className="border-b pb-4 hover:bg-gray-100 transition duration-300">
@@ -114,6 +117,7 @@ const FileSearch = () => {
         ))}
       </ul>
 
+      {/* Modal for File Details */}
       {selectedFile && (
         <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
           <div className="bg-white rounded-lg p-6 w-96">
