@@ -5,7 +5,7 @@ const useFileStatus = (fileId: string) => {
   const [status, setStatus] = useState('pending');
 
   useEffect(() => {
-    const socket = io(process.env.NEXT_PUBLIC_SOCKET_URL!);
+    const socket = io(process.env.NEXT_PUBLIC_API_URL!);
     socket.emit('join', { fileId });
 
     socket.on('fileStatus', (status: string) => {
