@@ -88,7 +88,7 @@ const UserProfilePage = () => {
   const handleDeleteUser = async (userId: string) => {
     try {
       const token = localStorage.getItem("token");
-      await axios.delete(`${process.env.NEXT_PUBLIC_API_URL}/${userId}`, {
+      await axios.delete(`${process.env.NEXT_PUBLIC_API_URL}users/${userId}`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -107,7 +107,7 @@ const UserProfilePage = () => {
       try {
         const token = localStorage.getItem("token");
         const res = await axios.put(
-          `${process.env.NEXT_PUBLIC_API_URL}/${userId}/edit`,
+          `${process.env.NEXT_PUBLIC_API_URL}/users/${userId}/edit`,
           { username: newName },
           {
             headers: {
