@@ -3,7 +3,7 @@ import { io } from 'socket.io-client';
 
 const useSocket = () => {
   const [message, setMessage] = useState<string>('');
-  const socket = io(process.env.NEXT_PUBLIC_SOCKET_URL!);
+  const socket = io(process.env.NEXT_PUBLIC_API_URL!);
   useEffect(() => {
     socket.on('connect', () => {
       console.log('Successfully connected to WebSocket server');
