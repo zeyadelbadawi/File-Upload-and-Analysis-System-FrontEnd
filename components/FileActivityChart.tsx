@@ -24,7 +24,7 @@ const FileActivityChart = () => {
     if (userId !== null) {
       setLoading(true);
       axios
-        .get(`http://localhost:3000/file/file-summary?userId=${userId}`)
+        .get(`${process.env.NEXT_PUBLIC_API_URL}/file/file-summary?userId=${userId}`)
         .then((response) => {
           const fileTypeBreakdown = response.data.fileTypeBreakdown;
 
