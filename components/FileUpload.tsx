@@ -24,7 +24,7 @@ const FileUpload = () => {
     }
 
     axios
-      .post('http://localhost:3000/file/upload', formData, {
+      .post(`${process.env.NEXT_PUBLIC_API_URL}/file/upload`, formData, {
         onUploadProgress: (progressEvent: any) => {
           setUploadProgress(Math.round((progressEvent.loaded * 100) / progressEvent.total));
         },
