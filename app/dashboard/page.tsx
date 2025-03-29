@@ -88,7 +88,7 @@ const UserProfilePage = () => {
   const handleDeleteUser = async (userId: string) => {
     try {
       const token = localStorage.getItem("token");
-      await axios.delete(`${process.env.NEXT_PUBLIC_API_URL}users/${userId}`, {
+      await axios.delete(`${process.env.NEXT_PUBLIC_API_URL}/users/${userId}`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
