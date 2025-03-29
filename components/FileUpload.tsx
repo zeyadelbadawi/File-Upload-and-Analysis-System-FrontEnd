@@ -9,13 +9,26 @@ const FileUpload = () => {
   const [filePreviews, setFilePreviews] = useState<string[]>([]);
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
   const [isUploading, setIsUploading] = useState(false);
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+
+  // Check if the user is logged in by checking for a stored userId in localStorage
+  React.useEffect(() => {
+    const userId = localStorage.getItem('userId');
+    if (userId) {
+      setIsLoggedIn(true);
+    }
+  }, []);
 
   const onDrop = (acceptedFiles: File[]) => {
+    if (!isLoggedIn) {
+      setErrorMessage('You must be logged in to upload files.');
+      return;
+    }
+
     setErrorMessage(null);
-    setIsUploading(true); 
+    setIsUploading(true);
 
     const formData = new FormData();
-
     acceptedFiles.forEach(file => formData.append('file', file));
 
     const userId = localStorage.getItem('userId');
@@ -61,31 +74,39 @@ const FileUpload = () => {
 
   return (
     <div className="container mx-auto p-4">
-      <div {...getRootProps()} className="border-dashed border-4 p-8 text-center cursor-pointer hover:bg-gray-100 transition-all">
-        <input {...getInputProps()} />
-        <p className="text-lg font-semibold text-gray-600">Drag and drop files here, or click to select files</p>
-        {errorMessage && <p className="text-red-600 mt-2">{errorMessage}</p>}
-      </div>
+      {isLoggedIn ? (
+        <>
+          <div {...getRootProps()} className="border-dashed border-4 p-8 text-center cursor-pointer hover:bg-gray-100 transition-all">
+            <input {...getInputProps()} />
+            <p className="text-lg font-semibold text-gray-600">Drag and drop files here, or click to select files</p>
+            {errorMessage && <p className="text-red-600 mt-2">{errorMessage}</p>}
+          </div>
 
-      {filePreviews.length > 0 && (
-        <div className="mt-4 grid grid-cols-2 gap-4">
-          {filePreviews.map((preview, index) => (
-            <div key={index} className="border p-2 rounded-md">
-              <img src={preview} alt={`Preview ${index}`} className="max-w-full h-auto" />
+          {filePreviews.length > 0 && (
+            <div className="mt-4 grid grid-cols-2 gap-4">
+              {filePreviews.map((preview, index) => (
+                <div key={index} className="border p-2 rounded-md">
+                  <img src={preview} alt={`Preview ${index}`} className="max-w-full h-auto" />
+                </div>
+              ))}
             </div>
-          ))}
-        </div>
-      )}
+          )}
 
-      {isUploading ? (
-        <div className="mt-4">
-          <p>Uploading... Please wait.</p>
-          <progress value={uploadProgress} max="100" className="w-full" />
-        </div>
+          {isUploading ? (
+            <div className="mt-4">
+              <p>Uploading... Please wait.</p>
+              <progress value={uploadProgress} max="100" className="w-full" />
+            </div>
+          ) : (
+            uploadProgress === 100 && (
+              <p className="text-green-600 mt-2">Upload complete!</p>
+            )
+          )}
+        </>
       ) : (
-        uploadProgress === 100 && (
-          <p className="text-green-600 mt-2">Upload complete!</p>
-        )
+        <div className="text-center">
+          <p className="text-red-600 text-lg font-semibold">You must be logged in to upload files.</p>
+        </div>
       )}
     </div>
   );
