@@ -3,7 +3,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 
-const FileSearch = () => {
+const FileSearch = ({ files }: { files: any[] }) => {
   const [userId, setUserId] = useState<number | null>(null);
   const [files, setFiles] = useState<any[]>([]);
   const [searchTerm, setSearchTerm] = useState('');
