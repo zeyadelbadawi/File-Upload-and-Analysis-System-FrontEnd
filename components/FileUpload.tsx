@@ -4,14 +4,13 @@ import { useDropzone } from 'react-dropzone';
 import React, { useState } from 'react';
 import axios from 'axios';
 
-const FileUpload = () => {
+const FileUpload = ({ refreshFiles }: { refreshFiles: () => void }) => { // Accept refreshFiles as prop
   const [uploadProgress, setUploadProgress] = useState(0);
   const [filePreviews, setFilePreviews] = useState<string[]>([]);
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
   const [isUploading, setIsUploading] = useState(false);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
 
-  // Check if the user is logged in by checking for a stored userId in localStorage
   React.useEffect(() => {
     const userId = localStorage.getItem('userId');
     if (userId) {
@@ -45,7 +44,7 @@ const FileUpload = () => {
       .then(response => {
         console.log('Files uploaded successfully:', response.data);
         setIsUploading(false);
-        window.location.reload();
+        refreshFiles(); // Call refreshFiles to trigger re-fetch of files
       })
       .catch(error => {
         console.error('Error uploading files:', error);
