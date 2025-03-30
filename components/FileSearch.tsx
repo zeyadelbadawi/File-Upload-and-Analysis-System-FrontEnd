@@ -12,6 +12,8 @@ interface File {
 
 interface FileSearchProps {
   files: File[]; 
+  setFiles: React.Dispatch<React.SetStateAction<File[]>>;
+
 }
 
 const FileSearch: React.FC<FileSearchProps> = ({ files }) => {
