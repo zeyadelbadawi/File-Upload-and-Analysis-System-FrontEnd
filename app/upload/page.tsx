@@ -7,7 +7,6 @@ import FileActivityChart from '@/components/FileActivityChart';
 import FileProcessingStatus from '@/components/FileProcessingStatus';
 import ActionLogs from '@/components/ActionLogs';
 
-// Define the file type interface for type safety
 interface File {
   id: number;
   originalName: string;
@@ -18,7 +17,6 @@ interface File {
 }
 
 export default function Home() {
-  // Update the files state type to be an array of File
   const [files, setFiles] = useState<File[]>([]);
 
   const refreshFiles = () => {
@@ -34,7 +32,6 @@ export default function Home() {
       <FileUpload refreshFiles={refreshFiles} />
       <FileProcessingStatus />
       <ActionLogs />
-      {/* Pass setFiles as a prop to FileSearch */}
       <FileSearch files={files} setFiles={setFiles} />
       <FileActivityChart />
     </div>
