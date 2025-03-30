@@ -3,6 +3,10 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 
+interface FileSearchProps {
+  files: any[]; 
+}
+
 const FileSearch = ({ files }: { files: any[] }) => {
   const [userId, setUserId] = useState<number | null>(null);
   const [files, setFiles] = useState<any[]>([]);
