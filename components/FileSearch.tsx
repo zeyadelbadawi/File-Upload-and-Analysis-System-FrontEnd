@@ -1,10 +1,17 @@
-'use client';
-
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 
+interface File {
+  id: number;
+  originalName: string;
+  mimeType: string;
+  status: string;
+  uploadDate: string;
+  extractedData?: string;
+}
+
 interface FileSearchProps {
-  files: any[];  // Define the files prop as an array of objects
+  files: File[]; 
 }
 
 const FileSearch: React.FC<FileSearchProps> = ({ files }) => {
@@ -31,7 +38,6 @@ const FileSearch: React.FC<FileSearchProps> = ({ files }) => {
       axios
         .get(`${process.env.NEXT_PUBLIC_API_URL}/file/files?userId=${userId}&status=${status}&type=${fileType}&sortBy=${sortBy}&sortOrder=${sortOrder}`)
         .then((response) => {
-          // Update the files list fetched from the API
           setFiles(response.data.data);
           setLoading(false);
         })
@@ -42,6 +48,9 @@ const FileSearch: React.FC<FileSearchProps> = ({ files }) => {
     }
   }, [userId, status, fileType, sortBy, sortOrder]);
 
+  if (loading) return <p className="text-center text-gray-600">Loading files...</p>;
+  if (error) return <p className="text-center text-red-500">{error}</p>;
+
   // Search functionality
   const filteredFiles = files.filter((file) =>
     file.originalName.toLowerCase().includes(searchTerm.toLowerCase())
@@ -50,9 +59,6 @@ const FileSearch: React.FC<FileSearchProps> = ({ files }) => {
   const closeModal = () => {
     setSelectedFile(null);
   };
-
-  if (loading) return <p className="text-center text-gray-600">Loading files...</p>;
-  if (error) return <p className="text-center text-red-500">{error}</p>;
 
   return (
     <div className="max-w-full mx-auto p-6 bg-white shadow-lg rounded-lg mt-6 mb-6">
@@ -68,7 +74,6 @@ const FileSearch: React.FC<FileSearchProps> = ({ files }) => {
           />
           <span className="absolute right-4 text-gray-400">🔍</span>
         </div>
-        {/* Filter Dropdowns */}
         <select
           value={fileType}
           onChange={(e) => setFileType(e.target.value)}
