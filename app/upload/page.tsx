@@ -2,7 +2,6 @@
 
 import React, { useState } from 'react';
 import FileUpload from '@/components/FileUpload';
-import FileList from '@/components/FileList';
 import FileSearch from '@/components/FileSearch';
 import FileActivityChart from '@/components/FileActivityChart';
 import FileProcessingStatus from '@/components/FileProcessingStatus';
@@ -25,7 +24,6 @@ export default function Home() {
       <FileProcessingStatus />
       <ActionLogs />
       <FileSearch files={files} />
-      <FileList files={files} />
       <FileActivityChart />
     </div>
   );
