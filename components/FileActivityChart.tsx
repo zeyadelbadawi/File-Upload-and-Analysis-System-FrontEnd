@@ -7,6 +7,11 @@ import { Chart as ChartJS, ArcElement, Tooltip, Legend } from 'chart.js';
 
 ChartJS.register(ArcElement, Tooltip, Legend);
 
+
+interface FileActivityChartProps {
+  files: any[];
+}
+
 const FileActivityChart = ({ files }: { files: any[] }) => {
   const [userId, setUserId] = useState<number | null>(null);
   const [fileTypeData, setFileTypeData] = useState<any>({ labels: [], datasets: [] });
