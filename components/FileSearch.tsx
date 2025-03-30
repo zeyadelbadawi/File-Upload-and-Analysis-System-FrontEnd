@@ -1,3 +1,5 @@
+'use client';
+
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 
@@ -11,12 +13,11 @@ interface File {
 }
 
 interface FileSearchProps {
-  files: File[]; 
-  setFiles: React.Dispatch<React.SetStateAction<File[]>>;
-
+  files: File[];
+  setFiles: React.Dispatch<React.SetStateAction<File[]>>; // Accept setFiles as a prop
 }
 
-const FileSearch: React.FC<FileSearchProps> = ({ files }) => {
+const FileSearch: React.FC<FileSearchProps> = ({ files, setFiles }) => {
   const [userId, setUserId] = useState<number | null>(null);
   const [searchTerm, setSearchTerm] = useState('');
   const [fileType, setFileType] = useState('');
@@ -40,7 +41,7 @@ const FileSearch: React.FC<FileSearchProps> = ({ files }) => {
       axios
         .get(`${process.env.NEXT_PUBLIC_API_URL}/file/files?userId=${userId}&status=${status}&type=${fileType}&sortBy=${sortBy}&sortOrder=${sortOrder}`)
         .then((response) => {
-          setFiles(response.data.data);
+          setFiles(response.data.data);  // This will work now, because setFiles is passed as a prop
           setLoading(false);
         })
         .catch((error) => {
@@ -48,7 +49,7 @@ const FileSearch: React.FC<FileSearchProps> = ({ files }) => {
           setLoading(false);
         });
     }
-  }, [userId, status, fileType, sortBy, sortOrder]);
+  }, [userId, status, fileType, sortBy, sortOrder, setFiles]);
 
   if (loading) return <p className="text-center text-gray-600">Loading files...</p>;
   if (error) return <p className="text-center text-red-500">{error}</p>;
