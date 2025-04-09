@@ -36,17 +36,17 @@ This is the frontend of the **File Upload and Analysis System**, built with **Ne
 - npm or yarn
 
 ### Installation
-- npm install
+$ npm install
 # or
-- yarn install
+$ yarn install
 
 ### Running the App 
-- npm run dev 
+$ npm run dev 
 # or
-- yarn dev
+$ yarn dev
 
 ### Build for Production
-- npm run build
+$ npm run build
 
 ### Project Structure
 /pages          # Next.js routes
